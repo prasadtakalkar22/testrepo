@@ -1,0 +1,236 @@
+Scripting:
+````````````
+To execute multiple objects [cmds] using single object [file].
+
+extension: .bash or .sh
+
+To run:
+```````
+# bash script.sh
+OR
+# ./script.sh [to execute the script: chmod u+x file.sh]
+
+
+
+
+
+
+
+
+
+
+First line of script must be: [shebang]
+
+#!/bin/bash
+
+++++++++++++++++++++++++++++-----
+# vim script.sh
+
+#!/bin/bash
+cmd1
+cmd2
+cmd3
+
+# bash script.sh
+...
+++++++++++++++++++++++++++++
+Variables:
+----------
+#!/bin/bash
+target=cdac.in
+
+echo "My target is : $target"
+~~~~~~~~~~~~~~~~~~
+
+#!/bin/bash
+read -p "Enter something: " target 
+
+echo "My target is : $target"
+
+~~~~~~~~~~~~~~~~~~~~~
+#!/bin/bash
+c_user=$(whoami)
+
+echo "User is $c_user"
+
+
+
+
+
+
+++++++++++++++++++++++++++++++++++++++++++
+#!/bin/bash
+read -p "Enter command: " a
+$a &> /dev/null
+echo "Exit Code: $?"
+
+
+
+
+
+
+
+
+
+
+Arithmetic:
+````````
+#!/bin/bash
+x=10
+y=2
+
+echo $(($x + $y))
+echo $(($x - $y))
+echo $(($x * $y))
+echo $(($x / $y))
+----------
+#!/bin/bash
+expr 2 + 2
+expr 2 \* 2
+expr 2 - 2
+expr 2 / 2
+
+
+Debug:
+
+# bash -x script.sh
+++++++++++++++++++++++++++++++++++++++++++
+
+Conditions:
+````````
+
+1) if...then...fi
+```````````````````````````````
+#!/bin/bash
+read -p "Enter : " a
+
+if [ "$a" -eq "1" ];then
+	echo "cool"
+fi
+
+2) if...then...else...fi
+`````````````````````````
+#!/bin/bash
+read -p "Enter : " a
+
+if [ "$a" -eq "1" ];then
+	echo "cool"
+else
+	echo "kutriya sala"
+fi
+
+3) if...then...elif...then...fi
+```````````````````````````````
+#!/bin/bash
+read -p "Enter : " a
+
+if [ "$a" -eq "1" ];then
+	echo "cool"
+elif [ "$a" -eq "2" ];then
+	echo "sparta"
+fi
+
+
+4) if...then...elif...then...else...fi
+``````````````````````````````````````````
+#!/bin/bash
+read -p "Enter : " a
+
+if [ "$a" -eq "1" ];then
+	echo "cool"
+elif [ "$a" -eq "2" ];then
+	echo "sparta"
+else
+	echo "kutriya"
+fi
+
+----------------------
+
+Command: sl
+
+if the command is availabe on machine, 
+if not available then install it using "apt install sl -y"
+
+HINT: exit code
+
+Ans:
+`
+#!/bin/bash
+sl
+
+if [ $? -eq 0 ];then
+	echo "Success"
+else
+	echo "Install using apt install sl -y"
+fi
+
+
+
+
+
+1) Relational Operator:  
+````````````````````
+Numeric comparisons: ==, !=, <, <=, >, >=
+String Comparisons: -eq, -ne, -lt, -le, -gt, -ge
+RegEx Match/not-match: =, !
+		eg: [[ $a =~ 2.. ]]
+
+2) Logical Operators:
+``````````````````````
+||, &&, !
+
+eg: [[ $a == "2" ]] || [[ $a == "1" ]]
+eg: [[ $a == "2" ]] && [[ $a == "1" ]]
+===========================================================================================================================================
+
+while:
+```````
+
+while true;do
+	cmd
+done
+____________
+# while read -p "Enter: " a;do echo "Out: $a";done
+
+# cat names.txt
+dheeraj
+ulala
+
+# cat names.txt | while read a;do echo "Name: $a";done
+
+# while read a;do echo "Name: $a";done < names.txt
+
+
+
+
+Domain: cdac.in
+
+SUB DOMAIN: feedback.cdac.in
+
+
+# host cdac.in
+
+# if host cdac.in &> /dev/null; then echo "Alive";fi
+
+# cat > subs.txt
+www
+admin
+login
+test
+api
+support
+help
+qa
+k8s
+jenkins
+jira
+
+# cat subs.txt | while read sub;do echo "$sub.tesla.com";done
+++++++++++++++++++++++++++++++++++++++++
+
+#!/bin/bash
+while read sub;do
+	if host "$sub.tesla.com" &> /dev/null;then
+		echo "$sub.tesla.com : Alive"
+	fi
+done < subs.txt
